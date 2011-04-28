@@ -1045,6 +1045,12 @@ public class AudioService extends IAudioService.Stub {
 	    Log.e(TAG, "Routing to headphones");
             AudioSystem.setForceUse(AudioSystem.FOR_MEDIA, AudioSystem.FORCE_WIRED_ACCESSORY);
             mForcedUseForComm = AudioSystem.FORCE_WIRED_ACCESSORY;
+            setSpeakerphoneOn(true);
+            setMode(AudioSystem.MODE_NORMAL, null);
+        } else {
+	    Log.e(TAG, "Routing to headphones");
+            setSpeakerphoneOn(false);
+            setMode(AudioSystem.MODE_NORMAL, null);
         }
     }
 
@@ -1053,6 +1059,18 @@ public class AudioService extends IAudioService.Stub {
         if (mForcedUseForComm == AudioSystem.FORCE_SPEAKER) {
             return true;
         } else {
+            return false;
+        }
+    }
+
+    /** Hack for getting SE FM app working */
+    public boolean isSpeakerMediaOn() {
+	//Log.e(TAG, "isSpeakerMediaOn called!");
+        if (mForcedUseForComm == AudioSystem.FORCE_SPEAKER) {
+	    //Log.e(TAG, "RETURNING TRUE");
+            return true;
+        } else {
+	    //Log.e(TAG, "RETURNING FALSE");
             return false;
         }
     }
