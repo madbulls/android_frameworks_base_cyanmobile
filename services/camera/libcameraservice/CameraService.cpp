@@ -1149,6 +1149,10 @@ bool CameraService::Client::recordingEnabled() {
 status_t CameraService::Client::autoFocus() {
 #ifdef LIBCAMERA_MISSING_AUTOFOCUS
     // skip autofocus callback
+#ifdef BOARD_CAMERA_NO_AUTOFOCUS
+    notifyCallback(CAMERA_MSG_FOCUS, 1, 0, 0);
+    return NO_ERROR;
+#else
     notifyCallback(CAMERA_MSG_FOCUS, 1, 0, 0);
     return NO_ERROR;
 #endif
